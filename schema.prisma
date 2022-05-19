@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model feedback {
+  id        Int      @id @default(autoincrement())
+  timestamp DateTime @default(now()) @db.Timestamp(6)
+  text      String
+}
+
+model people {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  userId Int?   @unique()
+  users  users? @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  /// ingredients this person has
+  people__ingredients people__ingredients[]
+}
+
+model users {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+
+  people people?
+}
+
+model recipes {
+  id    Int     @id @default(autoincrement())
+  steps String
+  image String?
+
+  /// ingredients of this recipe
+  ingredients__recipes ingredients__recipes[]
+}
+
+enum ingredients_difficulty_enum {
+  easy
+  medium
+  hard
+}
+
+model ingredients {
+  id         Int                          @id @default(autoincrement())
+  name       String
+  price      Int?
+  difficulty ingredients_difficulty_enum?
+
+  /// recipes that use this ingredient
+  ingredients__recipes ingredients__recipes[]
+
+  /// people that have this ingredient
+  people__ingredients people__ingredients[]
+}
+
+model ingredients__recipes {
+  amount Decimal @db.Decimal
+
+  ingredientId Int
+  ingredients  ingredients @relation(fields: [ingredientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  recipeId Int
+  recipes  recipes @relation(fields: [recipeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([recipeId, ingredientId])
+  @@index([ingredientId])
+  @@index([recipeId])
+}
+
+model people__ingredients {
+  ingredientId Int
+  ingredients  ingredients @relation(fields: [ingredientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  personId Int
+  people   people @relation(fields: [personId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([personId, ingredientId])
+  @@index([ingredientId])
+  @@index([personId])
+}

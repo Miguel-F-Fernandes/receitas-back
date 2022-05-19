@@ -1,14 +1,13 @@
 {
-  "name": "prisma",
-  "version": "1.0.0",
-  "description": "",
+  "name": "backend-beber_coisa_online",
+  "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "db:sync": "npx prisma db push"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Miguel F.",
+  "license": "AGPL-3.0",
   "devDependencies": {
     "@types/node": "^17.0.35",
     "prisma": "^3.14.0",

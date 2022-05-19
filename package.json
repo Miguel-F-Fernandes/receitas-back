@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "db:sync": "npx prisma db push"
+    "migration:dev": "npx prisma migrate dev"
   },
   "keywords": [],
   "author": "Miguel F.",
@@ -13,5 +13,8 @@
     "prisma": "^3.14.0",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "@prisma/client": "3.14.0"
   }
 }

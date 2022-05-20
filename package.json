@@ -1,20 +1,52 @@
 {
   "name": "backend-beber_coisa_online",
   "version": "0.0.1",
-  "main": "index.js",
   "scripts": {
+    "start": "node ./src/bin/server",
+    "dev": "nodemon",
+    "prod": "export NODE_ENV='production' && yarn start",
+    "lint": "eslint . --ext .js --fix",
+    "prettier": "prettier --write .",
+    "prepare": "husky install",
     "migration:dev": "npx prisma migrate dev"
   },
-  "keywords": [],
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "js",
+    "exec": "yarn start"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "eslint --cache --fix"
+    ]
+  },
   "author": "Miguel F.",
   "license": "AGPL-3.0",
   "devDependencies": {
     "@types/node": "^17.0.35",
+    "eslint": "^8.15.0",
+    "husky": "^8.0.1",
+    "prettier": "^2.6.2",
     "prisma": "^3.14.0",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@prisma/client": "3.14.0"
+    "@prisma/client": "3.14.0",
+    "cls-hooked": "^4.2.2",
+    "cors": "^2.8.5",
+    "debug": "^4.3.4",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-jwt": "^7.7.2",
+    "express-jwt-permissions": "^1.3.6",
+    "hash.js": "^1.1.7",
+    "helmet": "^5.1.0",
+    "http-errors": "^2.0.0",
+    "joi": "^17.6.0",
+    "morgan": "^1.10.0"
   }
 }

@@ -19,6 +19,16 @@ function login(req, res, next) {
   return checkSchema(schema, req, res, next)
 }
 
+function register(req, res, next) {
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  })
+  return checkSchema(schema, req, res, next)
+}
+
 module.exports = {
   login,
+  register,
 }

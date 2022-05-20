@@ -5,40 +5,29 @@ const isRevokedCallback = require('../services/jwt').isRevokedCallback
 
 const middlewares = require('../middlewares')
 
-const RootRoute = require('./root.route')
-const UserRoute = require('./user.route')
+const AuthRoute = require('./auth.route')
 const HealthRoute = require('./health.route')
 
 module.exports = [
-  {
-    path: '/users',
-    middleware: [
-      jwt({
-        secret: process.env.SECRET,
-        algorithms: ['HS256'],
-        isRevoked: isRevokedCallback,
-      }).unless({
-        path: [{ url: '/users', methods: ['POST'] }],
-      }),
-    ],
-    handler: UserRoute,
-  },
   {
     path: '/health',
     middleware: [],
     handler: HealthRoute,
   },
   {
-    path: '/',
+    path: '/auth',
     middleware: [
       jwt({
         secret: process.env.SECRET,
         algorithms: ['HS256'],
         isRevoked: isRevokedCallback,
       }).unless({
-        path: [{ url: '/login', methods: ['POST'] }],
+        path: [
+          { url: '/auth/login', methods: ['POST'] },
+          { url: '/auth/register', methods: ['POST'] },
+        ],
       }),
     ],
-    handler: RootRoute,
+    handler: AuthRoute,
   },
 ]

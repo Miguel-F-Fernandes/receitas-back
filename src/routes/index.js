@@ -7,6 +7,7 @@ const middlewares = require('../middlewares')
 
 const RootRoute = require('./root.route')
 const UserRoute = require('./user.route')
+const HealthRoute = require('./health.route')
 
 module.exports = [
   {
@@ -21,6 +22,11 @@ module.exports = [
       }),
     ],
     handler: UserRoute,
+  },
+  {
+    path: '/health',
+    middleware: [],
+    handler: HealthRoute,
   },
   {
     path: '/',

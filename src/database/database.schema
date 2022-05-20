@@ -12,7 +12,7 @@ datasource db {
 
 model feedback {
   id        Int      @id @default(autoincrement())
-  timestamp DateTime @default(now()) @db.Timestamp(6)
+  timestamp DateTime @default(now()) @db.Timestamptz(6)
   text      String
 }
 
@@ -21,18 +21,20 @@ model people {
   name String
 
   userId Int?   @unique()
-  users  users? @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user   users? @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   /// ingredients this person has
   people__ingredients people__ingredients[]
 }
 
 model users {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
+  id          Int       @id @default(autoincrement())
+  email       String    @unique
+  password    String
+  salt        String
+  login_until DateTime? @db.Timestamptz(6)
 
-  people people?
+  person people?
 }
 
 model recipes {

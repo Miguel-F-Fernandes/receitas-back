@@ -1,31 +1,29 @@
+const db = require('../database')
+
 /**
  * Check if the user on the JWT exists on the DB
  */
 async function isRevokedCallback(req, payload, done) {
-  let user
-  try {
-    // TODO get User with payload.email
-  } catch (err) {
-    return done(err)
-  }
+  const user = await db.users.findUnique({
+    where: {
+      email: payload.payload.email,
+    },
+  })
 
   // user not found
   if (!user) {
-    return done(null, true)
+    return true
   }
 
   // token expired
-  if (
-    !user.dataValues.login_until ||
-    user.dataValues.login_until.getTime() < new Date().getTime()
-  ) {
-    return done(null, true)
+  if (!user.login_until || user.login_until.getTime() < new Date().getTime()) {
+    return true
   }
 
   req.res.locals.user = user
 
   // ok to proceed
-  return done(null, false)
+  return false
 }
 module.exports = {
   isRevokedCallback,

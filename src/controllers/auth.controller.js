@@ -1,19 +1,29 @@
 const createError = require('http-errors')
 const hash = require('hash.js')
 const jsonwebtoken = require('jsonwebtoken')
+const db = require('../database')
 
 class AuthController {
   /**
    * User login
    */
   static async login(req, res) {
-    // TODO
-    let user
     // for how many hours the login token is valid
     const hoursValid = 24 * 7 // 7 days
 
     // search by the user through their email
-    // req.body.email
+    const user = await db.users.findUnique({
+      where: {
+        email: req.body.email,
+      },
+      include: {
+        person: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    })
 
     // if the user wasn't found or the password doesn't match
     if (
@@ -31,16 +41,21 @@ class AuthController {
     const token = jsonwebtoken.sign(
       {
         id: user.id,
-        name: user.name,
+        name: user.person.name,
         email: user.email,
-        permissions: [user.type],
       },
       process.env.SECRET
     )
 
-    // save to DB until their login is valid
-
-    // login_until: new Date(new Date().getTime() + hoursValid * 60 * 60 * 1000),
+    // save to DB until when is their login valid
+    await db.users.update({
+      data: {
+        login_until: new Date(new Date().getTime() + hoursValid * 60 * 60 * 1000),
+      },
+      where: {
+        email: user.email,
+      },
+    })
 
     return res.status(200).send({
       token: token,
@@ -51,12 +66,17 @@ class AuthController {
    * User logout
    */
   static async logout(req, res) {
-    // TODO
     // get user from decoded token
     const user = req.res.locals.user
 
-    // clear their login time on the DB
-    // login_until: null,
+    await db.users.update({
+      data: {
+        login_until: null,
+      },
+      where: {
+        email: user.email,
+      },
+    })
 
     return res.status(204).send()
   }
@@ -65,19 +85,25 @@ class AuthController {
    * User creation
    */
   static async register(req, res) {
-    // TODO
     // generate a random salt
     const salt = (Math.random() + 1).toString(36).substring(2)
 
-    // create the user
-    // email: req.body.email,
-    // name: req.body.name,
-    // password: hash
-    //   .sha512()
-    //   .update(salt + req.body.password)
-    //   .digest('hex'),
-    // salt: salt,
-    // type: req.body.type,
+    // create user and person associated
+    const person = await db.people.create({
+      data: {
+        name: req.body.name,
+        user: {
+          create: {
+            email: req.body.email,
+            password: hash
+              .sha512()
+              .update(salt + req.body.password)
+              .digest('hex'),
+            salt: salt,
+          },
+        },
+      },
+    })
 
     return res.status(204).send()
   }

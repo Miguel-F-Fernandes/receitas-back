@@ -4,7 +4,7 @@ CREATE TYPE "ingredients_difficulty_enum" AS ENUM ('easy', 'medium', 'hard');
 -- CreateTable
 CREATE TABLE "feedback" (
     "id" SERIAL NOT NULL,
-    "timestamp" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "timestamp" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "text" TEXT NOT NULL,
 
     CONSTRAINT "feedback_pkey" PRIMARY KEY ("id")
@@ -24,6 +24,8 @@ CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "salt" TEXT NOT NULL,
+    "login_until" TIMESTAMPTZ(6),
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );

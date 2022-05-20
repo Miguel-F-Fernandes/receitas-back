@@ -98,6 +98,7 @@ class App {
             return res.status(401).send(createError('Missing token'))
         }
       }
+      console.log(err)
       next()
     })
 

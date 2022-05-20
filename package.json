@@ -10,6 +10,9 @@
     "prepare": "husky install",
     "migration:dev": "npx prisma migrate dev"
   },
+  "prisma": {
+    "schema": "src/database/database.schema"
+  },
   "nodemonConfig": {
     "watch": [
       "src"

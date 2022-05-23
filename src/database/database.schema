@@ -24,7 +24,7 @@ model people {
   user   users? @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   /// ingredients this person has
-  people__ingredients people__ingredients[]
+  ingredients people__ingredients[]
 }
 
 model users {
@@ -43,7 +43,7 @@ model recipes {
   image String?
 
   /// ingredients of this recipe
-  ingredients__recipes ingredients__recipes[]
+  ingredients ingredients__recipes[]
 }
 
 enum ingredients_difficulty_enum {
@@ -59,10 +59,10 @@ model ingredients {
   difficulty ingredients_difficulty_enum?
 
   /// recipes that use this ingredient
-  ingredients__recipes ingredients__recipes[]
+  recipes ingredients__recipes[]
 
   /// people that have this ingredient
-  people__ingredients people__ingredients[]
+  people people__ingredients[]
 }
 
 model ingredients__recipes {

@@ -1,12 +1,12 @@
 const { expressjwt: jwt } = require('express-jwt')
 require('dotenv').config()
-const guard = require('express-jwt-permissions')()
 const isRevokedCallback = require('../services/jwt').isRevokedCallback
 
 const middlewares = require('../middlewares')
 
 const AuthRoute = require('./auth.route')
 const HealthRoute = require('./health.route')
+const RecipesRoute = require('./recipes.route')
 
 module.exports = [
   {
@@ -29,5 +29,16 @@ module.exports = [
       }),
     ],
     handler: AuthRoute,
+  },
+  {
+    path: '/recipes',
+    middleware: [
+      jwt({
+        secret: process.env.SECRET,
+        algorithms: ['HS256'],
+        isRevoked: isRevokedCallback,
+      }),
+    ],
+    handler: RecipesRoute,
   },
 ]

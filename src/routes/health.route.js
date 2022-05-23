@@ -1,5 +1,4 @@
 const express = require('express')
-const guard = require('express-jwt-permissions')()
 
 const HealthController = require('../controllers/health.controller')
 

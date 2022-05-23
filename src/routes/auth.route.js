@@ -1,7 +1,5 @@
 const express = require('express')
 
-const guard = require('express-jwt-permissions')()
-
 const middlewares = require('../middlewares')
 const AuthController = require('../controllers/auth.controller')
 

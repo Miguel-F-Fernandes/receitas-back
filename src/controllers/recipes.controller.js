@@ -6,9 +6,19 @@ class RecipesController {
    * Get all recipes
    */
   static async getAll(req, res) {
+    console.log(JSON.stringify(req.query.fields))
+    // TODO use `req.query.fields` to filter fields returned
+
     const recipes = await db.recipes.findMany({
+      skip: req.query.offset,
+      take: req.query.limit,
       include: {
-        ingredients: true,
+        ingredients: {
+          select: {
+            ingredient: true,
+            amount: true,
+          },
+        },
       },
     })
 

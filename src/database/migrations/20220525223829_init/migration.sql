@@ -37,7 +37,7 @@ CREATE TABLE "recipes" (
     "steps" TEXT NOT NULL,
     "image" TEXT,
     "decoration" TEXT,
-    "alcohol_content" DECIMAL(65,30),
+    "alcohol_content" DOUBLE PRECISION,
     "original_url" TEXT,
     "hardness" INTEGER,
     "sweetness" INTEGER,

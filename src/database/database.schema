@@ -43,7 +43,7 @@ model recipes {
   steps           String
   image           String?
   decoration      String?
-  alcohol_content Decimal?
+  alcohol_content Float?
   original_url    String?
   hardness        Int?
   sweetness       Int?
@@ -78,10 +78,10 @@ model ingredients__recipes {
   amount Json
 
   ingredient_id Int
-  ingredients   ingredients @relation(fields: [ingredient_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ingredient    ingredients @relation(fields: [ingredient_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   recipe_id Int
-  recipes   recipes @relation(fields: [recipe_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  recipe    recipes @relation(fields: [recipe_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([recipe_id, ingredient_id])
   @@index([ingredient_id])

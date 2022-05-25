@@ -5,4 +5,4 @@ const RecipesController = require('../controllers/recipes.controller')
 
 module.exports = express
   .Router()
-  .get('/', [middlewares.recipes.getParams], RecipesController.getAll)
+  .get('/', [middlewares.recipes.parseQueryParams], RecipesController.getAll)

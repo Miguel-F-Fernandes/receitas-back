@@ -8,10 +8,13 @@
     "lint": "eslint . --ext .js --fix",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "migration:dev": "npx prisma migrate dev"
+    "db:migration": "npx prisma migrate dev",
+    "db:reset": "npx prisma migrate reset",
+    "db:seed": "npx prisma db seed"
   },
   "prisma": {
-    "schema": "src/database/database.schema"
+    "schema": "src/database/database.schema",
+    "seed": "node src/database/seed.js"
   },
   "nodemonConfig": {
     "watch": [

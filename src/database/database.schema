@@ -20,8 +20,8 @@ model people {
   id   Int    @id @default(autoincrement())
   name String
 
-  userId Int?   @unique()
-  user   users? @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user_id Int?   @unique()
+  user    users? @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   /// ingredients this person has
   ingredients people__ingredients[]
@@ -38,9 +38,18 @@ model users {
 }
 
 model recipes {
-  id    Int     @id @default(autoincrement())
-  steps String
-  image String?
+  id              Int      @id @default(autoincrement())
+  name            String   @unique
+  steps           String
+  image           String?
+  decoration      String?
+  alcohol_content Decimal?
+  original_url    String?
+  hardness        Int?
+  sweetness       Int?
+  calories        Int?
+  serve_in        String?
+  description     String?
 
   /// ingredients of this recipe
   ingredients ingredients__recipes[]
@@ -54,7 +63,7 @@ enum ingredients_difficulty_enum {
 
 model ingredients {
   id         Int                          @id @default(autoincrement())
-  name       String
+  name       String                       @unique
   price      Int?
   difficulty ingredients_difficulty_enum?
 
@@ -66,27 +75,34 @@ model ingredients {
 }
 
 model ingredients__recipes {
-  amount Decimal @db.Decimal
+  amount Json
 
-  ingredientId Int
-  ingredients  ingredients @relation(fields: [ingredientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ingredient_id Int
+  ingredients   ingredients @relation(fields: [ingredient_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  recipeId Int
-  recipes  recipes @relation(fields: [recipeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  recipe_id Int
+  recipes   recipes @relation(fields: [recipe_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@id([recipeId, ingredientId])
-  @@index([ingredientId])
-  @@index([recipeId])
+  @@id([recipe_id, ingredient_id])
+  @@index([ingredient_id])
+  @@index([recipe_id])
 }
 
 model people__ingredients {
-  ingredientId Int
-  ingredients  ingredients @relation(fields: [ingredientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ingredient_id Int
+  ingredients   ingredients @relation(fields: [ingredient_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  personId Int
-  people   people @relation(fields: [personId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  person_id Int
+  people    people @relation(fields: [person_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@id([personId, ingredientId])
-  @@index([ingredientId])
-  @@index([personId])
+  @@id([person_id, ingredient_id])
+  @@index([ingredient_id])
+  @@index([person_id])
+}
+
+model glassware {
+  id       Int     @id @default(autoincrement())
+  name     String  @unique
+  image    String?
+  capacity String?
 }

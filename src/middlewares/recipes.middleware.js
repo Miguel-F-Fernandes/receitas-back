@@ -2,7 +2,7 @@ const createError = require('http-errors')
 const Joi = require('joi')
 
 function checkSchema(schema, req, res, next) {
-  const { error } = schema.validate(req.body)
+  const { error } = schema.validate(req.query)
 
   if (error !== undefined) {
     return res.status(400).send(createError(error.details[0].message))

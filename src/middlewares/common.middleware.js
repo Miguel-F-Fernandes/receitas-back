@@ -5,7 +5,7 @@ function parseQueryParams(req, res, next) {
   const schema = Joi.object({
     offset: Joi.number().integer(),
     limit: Joi.number().integer().default(25),
-    fields: Joi.string().pattern(/^[a-zA-Z0-9-'",{}:[\]]*$/),
+    fields: Joi.string().pattern(/^[a-zA-Z0-9-'",{}:[\]_]*$/),
   }).unknown(true)
 
   // validate schema

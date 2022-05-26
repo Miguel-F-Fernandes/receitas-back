@@ -93,7 +93,7 @@ model people__ingredients {
   ingredients   ingredients @relation(fields: [ingredient_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   person_id Int
-  people    people @relation(fields: [person_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  person    people @relation(fields: [person_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([person_id, ingredient_id])
   @@index([ingredient_id])

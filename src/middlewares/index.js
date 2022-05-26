@@ -1,7 +1,7 @@
 const auth = require('./auth.middleware')
-const recipes = require('./recipes.middleware')
+const common = require('./common.middleware')
 
 module.exports = {
   auth,
-  recipes,
+  common,
 }

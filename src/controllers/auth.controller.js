@@ -104,9 +104,8 @@ class AuthController {
       },
     })
 
-    // TODO log user in
-
-    return res.status(204).send()
+    // log user in
+    return AuthController.login(req, res)
   }
 }
 

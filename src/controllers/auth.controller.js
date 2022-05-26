@@ -40,7 +40,6 @@ class AuthController {
     // sign their token
     const token = jsonwebtoken.sign(
       {
-        id: user.id,
         name: user.person.name,
         email: user.email,
       },
@@ -104,6 +103,8 @@ class AuthController {
         },
       },
     })
+
+    // TODO log user in
 
     return res.status(204).send()
   }

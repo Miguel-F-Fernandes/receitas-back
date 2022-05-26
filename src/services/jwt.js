@@ -5,6 +5,16 @@ const db = require('../database')
  */
 async function isRevokedCallback(req, payload, done) {
   const user = await db.users.findUnique({
+    select: {
+      id: true,
+      email: true,
+      login_until: true,
+      person: {
+        select: {
+          id: true,
+        },
+      },
+    },
     where: {
       email: payload.payload.email,
     },

@@ -42,9 +42,7 @@ class IngredientsController {
         people: {
           some: {
             person: {
-              user: {
-                email: req.res.locals.user.email,
-              },
+              id: req.res.locals.user.person.id,
             },
           },
         },
@@ -52,6 +50,34 @@ class IngredientsController {
     })
 
     return res.status(200).send(ingredients)
+  }
+
+  /**
+   * Update ingredients a user has
+   */
+  static async update(req, res) {
+    // add ingredients
+    await db.people__ingredients.createMany({
+      data: req.body.add.map((id) => {
+        return {
+          ingredient_id: id,
+          person_id: req.res.locals.user.person.id,
+        }
+      }),
+      skipDuplicates: true,
+    })
+
+    // remove ingredients
+    await db.people__ingredients.deleteMany({
+      where: {
+        person_id: req.res.locals.user.person.id,
+        ingredient_id: {
+          in: req.body.remove,
+        },
+      },
+    })
+
+    return res.status(204).send()
   }
 }
 

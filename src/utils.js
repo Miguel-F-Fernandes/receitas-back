@@ -44,7 +44,7 @@ function buildWhereFields(table, validFields, query) {
     'in',
     'not_in',
   ]
-  const validKeys = Object.keys(validFields.select)
+  const validKeys = Object.keys(validFields.select).filter((key) => key.indexOf('_') !== 0)
 
   const caseInsensitive = (value) =>
     typeof value === 'string' ? { mode: 'insensitive' } : undefined

@@ -33,13 +33,7 @@ module.exports = [
   },
   {
     path: '/recipes',
-    middleware: [
-      jwt({
-        secret: process.env.SECRET,
-        algorithms: ['HS256'],
-        isRevoked: isRevokedCallback,
-      }),
-    ],
+    middleware: [],
     handler: RecipesRoute,
   },
   {

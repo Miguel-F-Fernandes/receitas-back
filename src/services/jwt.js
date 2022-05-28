@@ -1,4 +1,4 @@
-const db = require('../database')
+const { db } = require('../database')
 
 /**
  * Check if the user on the JWT exists on the DB

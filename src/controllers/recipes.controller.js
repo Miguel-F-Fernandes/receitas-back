@@ -1,5 +1,5 @@
 const createError = require('http-errors')
-const db = require('../database')
+const { db } = require('../database')
 const utils = require('../utils')
 
 class RecipesController {
@@ -43,6 +43,9 @@ class RecipesController {
       skip: req.query.offset,
       take: req.query.limit,
       ...(filteredFields ?? defaultFields),
+      where: {
+        ...utils.buildWhereFields('recipes', defaultFields, req.query),
+      },
     })
 
     return res.status(200).send(recipes)

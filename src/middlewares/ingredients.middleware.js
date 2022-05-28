@@ -1,6 +1,6 @@
 const createError = require('http-errors')
 const Joi = require('joi')
-const db = require('../database')
+const { db } = require('../database')
 
 async function update(req, res, next) {
   const schema = Joi.object({

@@ -1,7 +1,7 @@
 const createError = require('http-errors')
 const hash = require('hash.js')
 const jsonwebtoken = require('jsonwebtoken')
-const db = require('../database')
+const { db } = require('../database')
 
 class AuthController {
   /**

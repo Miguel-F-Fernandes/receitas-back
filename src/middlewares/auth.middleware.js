@@ -1,6 +1,6 @@
 const createError = require('http-errors')
 const Joi = require('joi')
-const db = require('../database')
+const { db } = require('../database')
 
 function checkSchema(schema, req, res, next) {
   const { error } = schema.validate(req.body)

@@ -1,5 +1,5 @@
 const createError = require('http-errors')
-const db = require('../database')
+const { db } = require('../database')
 const utils = require('../utils')
 
 class IngredientsController {
@@ -39,6 +39,7 @@ class IngredientsController {
       take: req.query.limit,
       ...(filteredFields ?? defaultFields),
       where: {
+        ...utils.buildWhereFields('ingredients', defaultFields, req.query),
         people: {
           some: {
             person: {

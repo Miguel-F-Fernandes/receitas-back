@@ -8,6 +8,7 @@ const AuthRoute = require('./auth.route')
 const HealthRoute = require('./health.route')
 const RecipesRoute = require('./recipes.route')
 const MyIngredientsRoute = require('./my-ingredients.route')
+const IngredientsRoute = require('./ingredients.route')
 
 module.exports = [
   {
@@ -35,6 +36,11 @@ module.exports = [
     path: '/recipes',
     middleware: [],
     handler: RecipesRoute,
+  },
+  {
+    path: '/ingredients',
+    middleware: [],
+    handler: IngredientsRoute,
   },
   {
     path: '/my-ingredients',

@@ -7,7 +7,7 @@ const middlewares = require('../middlewares')
 const AuthRoute = require('./auth.route')
 const HealthRoute = require('./health.route')
 const RecipesRoute = require('./recipes.route')
-const IngredientsRoute = require('./ingredients.route')
+const MyIngredientsRoute = require('./my-ingredients.route')
 
 module.exports = [
   {
@@ -37,7 +37,7 @@ module.exports = [
     handler: RecipesRoute,
   },
   {
-    path: '/ingredients',
+    path: '/my-ingredients',
     middleware: [
       jwt({
         secret: process.env.SECRET,
@@ -45,6 +45,6 @@ module.exports = [
         isRevoked: isRevokedCallback,
       }),
     ],
-    handler: IngredientsRoute,
+    handler: MyIngredientsRoute,
   },
 ]

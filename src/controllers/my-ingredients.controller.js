@@ -2,7 +2,7 @@ const createError = require('http-errors')
 const { db } = require('../database')
 const utils = require('../utils')
 
-class IngredientsController {
+class MyIngredientsController {
   /**
    * Get all ingredients user has
    */
@@ -82,4 +82,4 @@ class IngredientsController {
   }
 }
 
-module.exports = IngredientsController
+module.exports = MyIngredientsController

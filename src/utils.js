@@ -40,6 +40,7 @@ function buildWhereFields(table, validFields, query) {
     'gt_or_eq',
     'lt_or_eq',
     'blank',
+    'eq',
     'not_eq',
     'in',
     'not_in',
@@ -118,6 +119,13 @@ function buildWhereFields(table, validFields, query) {
             whereQuery[validKeys[i]] = {
               not: null,
             }
+          }
+          break
+        case 'eq':
+          value = castToColumnType(table, validKeys[i], query[validKeys[i]].eq)
+          whereQuery[validKeys[i]] = {
+            equals: value,
+            ...caseInsensitive(value),
           }
           break
         case 'not_eq':

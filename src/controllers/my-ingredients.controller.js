@@ -80,6 +80,24 @@ class MyIngredientsController {
 
     return res.status(204).send()
   }
+
+  /**
+   * Get fields available for querying
+   */
+  static async getFields(req, res) {
+    return res.status(200).send({
+      id: 'Database ID',
+      name: 'Name',
+      price: 'Average price',
+      difficulty: 'Difficulty to find',
+      recipes: {
+        recipe: {
+          id: 'Recipe - Database ID',
+          name: 'Recipe - Name',
+        },
+      },
+    })
+  }
 }
 
 module.exports = MyIngredientsController

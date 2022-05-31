@@ -50,6 +50,33 @@ class RecipesController {
 
     return res.status(200).send(recipes)
   }
+
+  /**
+   * Get fields available for querying
+   */
+  static async getFields(req, res) {
+    return res.status(200).send({
+      id: 'Database ID',
+      name: 'Name',
+      steps: 'Steps',
+      image: 'Image URL',
+      decoration: 'Decoration',
+      alcohol_content: 'Alcohol content',
+      hardness: 'Hardness',
+      sweetness: 'Sweetness',
+      calories: 'Calories',
+      serve_in: 'Serve in',
+      description: 'Description',
+      ingredients: {
+        ingredient: {
+          id: 'Ingredient - Database ID',
+          name: 'Ingredient - Name',
+          price: 'Ingredient - Average price',
+          difficulty: 'Ingredient - Difficulty to find',
+        },
+      },
+    })
+  }
 }
 
 module.exports = RecipesController

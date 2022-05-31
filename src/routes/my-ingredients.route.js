@@ -7,3 +7,4 @@ module.exports = express
   .Router()
   .get('/', [middlewares.common.parseQueryParams], MyIngredientsController.getAll)
   .patch('/', [middlewares.ingredients.update], MyIngredientsController.update)
+  .get('/fields', MyIngredientsController.getFields)

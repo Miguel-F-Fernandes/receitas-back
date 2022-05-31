@@ -6,3 +6,4 @@ const IngredientsController = require('../controllers/ingredients.controller')
 module.exports = express
   .Router()
   .get('/', [middlewares.common.parseQueryParams], IngredientsController.getAll)
+  .get('/fields', IngredientsController.getFields)

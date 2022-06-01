@@ -9,6 +9,7 @@ const HealthRoute = require('./health.route')
 const RecipesRoute = require('./recipes.route')
 const MyIngredientsRoute = require('./my-ingredients.route')
 const IngredientsRoute = require('./ingredients.route')
+const FeedbackRoute = require('./feedback.route')
 
 module.exports = [
   {
@@ -52,5 +53,10 @@ module.exports = [
       }),
     ],
     handler: MyIngredientsRoute,
+  },
+  {
+    path: '/feedback',
+    middleware: [],
+    handler: FeedbackRoute,
   },
 ]
